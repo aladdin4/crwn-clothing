@@ -1,14 +1,17 @@
 import React from "react";
+
 import CustomBtn from "../custom-btn/customBtn.component";
 import FormInput from "../form-input/formInput.component";
 import "./signIn.styles.scss";
+
+import { signInWithGoogle } from "../../firebase/firebase.util";
 
 class SignIn extends React.Component {
   state = { email: "", password: "" };
 
   onSubmitHandler = (e) => {
     e.preventDefault();
-    console.log("submitted");
+    // console.log("submitted");
     this.setState({ email: "", password: "" });
   };
 
@@ -32,7 +35,7 @@ class SignIn extends React.Component {
             id="email"
             onChange={this.onChangeHandler}
             value={this.state.email}
-            required={true}
+            required={false}
             label="Email"
           />
 
@@ -42,11 +45,13 @@ class SignIn extends React.Component {
             id="password"
             onChange={this.onChangeHandler}
             value={this.state.password}
-            required={true}
+            required={false}
             label="password"
           />
 
-          <CustomBtn type="submit">Submit Form</CustomBtn>
+          <CustomBtn type="submit">Sign In with Email</CustomBtn>
+
+          <CustomBtn onClick={signInWithGoogle}>Sign In With Google</CustomBtn>
         </form>
       </div>
     );

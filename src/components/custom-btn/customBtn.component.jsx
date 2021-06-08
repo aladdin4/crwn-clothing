@@ -2,12 +2,11 @@ import React from "react";
 
 import "./customBtn.styles.scss";
 
-const CustomBtn = (props) => {
+const CustomBtn = ({ children, ...others }) => {
   return (
-    <button className="custom-button" value={props.value}>
-      {props.children}
+    <button className="custom-button" {...others}>
+      {children}
     </button>
   );
 };
-
 export default CustomBtn;
