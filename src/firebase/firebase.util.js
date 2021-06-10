@@ -22,7 +22,7 @@ fireB.initializeApp(firebaseConfig);
 export const myAuth = fireB.auth();
 
 //export the returned main firestore object
-export const myFireStore = fireB.firestore();
+export const fireS = fireB.firestore();
 
 // we create a provider for the services we need (currently only google)
 // note: the keyword new indicating a class instance
@@ -34,8 +34,42 @@ provider.setCustomParameters({
 //we save the sign-in method and export it, to use it in different situations
 // so by just calling it, we will trigger sign in event
 export const signInWithGoogle = () => {
-  console.log("here");
   myAuth.signInWithPopup(provider);
+};
+
+//method that saves user data in the DB(fireS)
+export const createUserProfile = async (user) => {
+  //if there is no user signed-in return
+  if (!user) {
+    return;
+  }
+
+  // refrence {} of this user uid (the dynamically generated id for this specific user)
+  const userRef = fireS.doc(`users/${user.uid}`);
+
+  // get the snapshot of the current user
+  const userSnapShot = await userRef.get();
+
+  // save the user data only if doesn't already exist in the DB
+  if (!userSnapShot.exists) {
+    // we consume the data we need to be saved from the user {}, as they are hundreds of attributes and we don't wanna save all of those data.
+    const userName = user.displayName;
+    const userEmail = user.email;
+    const createdAt = new Date();
+    try {
+      // all the CRUD methods are async
+      await userRef.set({
+        userName,
+        userEmail,
+        createdAt,
+      });
+    } catch (error) {
+      console.log("there was an error creating new user", error.message);
+    }
+  }
+  // console.log(userSnapShot);
+  // console.log(user);
+  return userRef;
 };
 
 //in case we needed the whole library

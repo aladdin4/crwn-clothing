@@ -5,7 +5,7 @@ import ShopPage from "./pages/Shop/shop.component";
 import Header from "./components/header/header.component";
 import SignInUpPage from "./pages/sign-in-and-up/SignInAndUp.component";
 import React from "react";
-import { myAuth } from "./firebase/firebase.util";
+import { createUserProfile, myAuth } from "./firebase/firebase.util";
 
 class App extends React.Component {
   state = {
@@ -14,11 +14,17 @@ class App extends React.Component {
 
   componentDidMount() {
     // onAuthStateChange(arg) method returns a function that when called the open subscribtion is closed, and the arg. it takes should be the function that will be called as subscribed to change event.
-    this.unSubscripe = myAuth.onAuthStateChanged((user) => {
       this.setState({
         currentUser: user,
       });
-      console.log(user);
+      // console.log(user);
+
+      // creating a new profile if it doesn't already exist in the DB for the user just logged in
+      createUserProfile(user);
+
+      // this createUserProfile method is async inside, so to use it we have to use the keyword await
+      // const testAsync = await createUserProfile(user);
+      // console.log("testing async", testAsync);
     });
   }
 
