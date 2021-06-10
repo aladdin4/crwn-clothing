@@ -14,6 +14,7 @@ class App extends React.Component {
 
   componentDidMount() {
     // onAuthStateChange(arg) method returns a function that when called the open subscribtion is closed, and the arg. it takes should be the function that will be called as subscribed to change event.
+    this.unSubscripe = myAuth.onAuthStateChanged(async (user) => {
       this.setState({
         currentUser: user,
       });
