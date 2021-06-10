@@ -13,6 +13,7 @@ class App extends React.Component {
   };
 
   componentDidMount() {
+    // onAuthStateChange(arg) method returns a function that when called the open subscribtion is closed, and the arg. it takes should be the function that will be called as subscribed to change event.
     this.unSubscripe = myAuth.onAuthStateChanged((user) => {
       this.setState({
         currentUser: user,
@@ -29,7 +30,8 @@ class App extends React.Component {
     return (
       <Router>
         <div className="App">
-          <Header />
+          {/* feeding the user to the header component so it can render the stat of sign in efficiently */}
+          <Header currentUser={this.state.currentUser} />
           <Switch>
             <Route path="/Shop">
               <ShopPage />
