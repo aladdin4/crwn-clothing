@@ -69,6 +69,8 @@ export const createUserProfile = async (user) => {
   }
   // console.log(userSnapShot);
   // console.log(user);
+
+  // we return the userRef to the <App/> so we can edit the profile we have for the user not edit the user object returned by the oAuth
   return userRef;
 };
 

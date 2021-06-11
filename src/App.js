@@ -15,17 +15,25 @@ class App extends React.Component {
   componentDidMount() {
     // onAuthStateChange(arg) method returns a function that when called the open subscribtion is closed, and the arg. it takes should be the function that will be called as subscribed to change event.
     this.unSubscripe = myAuth.onAuthStateChanged(async (user) => {
-      this.setState({
-        currentUser: user,
-      });
-      // console.log(user);
+      if (user) {
+        // creating a new profile if it doesn't already exist in the DB for the user just logged in
+        // this createUserProfile method is async inside, so to use it we have to use the keyword await
+        const userRef = await createUserProfile(user);
 
-      // creating a new profile if it doesn't already exist in the DB for the user just logged in
-      createUserProfile(user);
+        // to get a live feedback data from fireS, we need to subscribe to it
+        userRef.onSnapshot((snapShot) => {
+          // we need to save the user data in state, but from the DB not from google Auth object
+          this.setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data(),
+            },
+          });
+        });
+      }
 
-      // this createUserProfile method is async inside, so to use it we have to use the keyword await
-      // const testAsync = await createUserProfile(user);
-      // console.log("testing async", testAsync);
+      //  we should set current user to null in state
+      this.setState({ currentUser: null });
     });
   }
 
