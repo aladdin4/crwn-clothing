@@ -30,10 +30,10 @@ class App extends React.Component {
             },
           });
         });
+      } else {
+        // if there is no user we should set current user to null in state
+        this.setState({ currentUser: null });
       }
-
-      //  we should set current user to null in state
-      this.setState({ currentUser: null });
     });
   }
 

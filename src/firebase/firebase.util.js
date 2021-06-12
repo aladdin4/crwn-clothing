@@ -38,9 +38,9 @@ export const signInWithGoogle = () => {
 };
 
 //method that saves user data in the DB(fireS)
-export const createUserProfile = async (user) => {
-  //if there is no user signed-in return
-  if (!user) {
+export const createUserProfile = async (user, additionalData) => {
+  // if there is no user sent as argument return
+  if (!user.email) {
     return;
   }
 
@@ -54,14 +54,17 @@ export const createUserProfile = async (user) => {
   if (!userSnapShot.exists) {
     // we consume the data we need to be saved from the user {}, as they are hundreds of attributes and we don't wanna save all of those data.
     const userName = user.displayName;
+
     const userEmail = user.email;
     const createdAt = new Date();
+
     try {
       // all the CRUD methods are async
       await userRef.set({
         userName,
         userEmail,
         createdAt,
+        ...additionalData,
       });
     } catch (error) {
       console.log("there was an error creating new user", error.message);
