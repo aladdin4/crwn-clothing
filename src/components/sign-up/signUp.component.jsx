@@ -7,7 +7,7 @@ import "./signUp.styles.scss";
 
 export class SignUp extends React.Component {
   state = {
-    displayName: "",
+    userName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -38,12 +38,12 @@ export class SignUp extends React.Component {
       // 4th save the data if new in the DB
       // create new profile with user created by fire base and complete the data with the data he entered through local state
       await createUserProfile(user, {
-        userName: this.state.displayName,
+        userName: this.state.userName,
       });
 
       // 5th clear the field (which are fed from state, So clear the state)
       this.setState({
-        displayName: "",
+        userName: "",
         email: "",
         password: "",
         confirmPassword: "",
@@ -64,9 +64,9 @@ export class SignUp extends React.Component {
         <form className="sign-up-form" onSubmit={this.handleSubmit}>
           <FormInput
             type="text"
-            name="displayName"
+            name="userName"
             onChange={this.handleChange}
-            value={this.state.displayName}
+            value={this.state.userName}
             label="Name"
             // required
           />

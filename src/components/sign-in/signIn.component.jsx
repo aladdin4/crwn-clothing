@@ -4,15 +4,25 @@ import CustomBtn from "../custom-btn/customBtn.component";
 import FormInput from "../form-input/formInput.component";
 import "./signIn.styles.scss";
 
-import { signInWithGoogle } from "../../firebase/firebase.util";
+import { myAuth, signInWithGoogle } from "../../firebase/firebase.util";
 
 class SignIn extends React.Component {
   state = { email: "", password: "" };
 
-  onSubmitHandler = (e) => {
+  onSubmitHandler = async (e) => {
     e.preventDefault();
-    // console.log("submitted");
-    this.setState({ email: "", password: "" });
+
+    try {
+      const user = await myAuth.signInWithEmailAndPassword(
+        this.state.email,
+        this.state.password
+      );
+
+      // clear the fields only if succeeded
+      this.setState({ email: "", password: "" });
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   onChangeHandler = (e) => {
