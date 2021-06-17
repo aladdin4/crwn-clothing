@@ -2,8 +2,9 @@
 // it takes a root state as property key and the value would be the reducer responsible for handling it.
 
 import { combineReducers } from "redux";
-import userReducer from "./user/user.reducer";
 
-export default rootReducer = combineReducers({
-  currentUser: userReducer,
+import { userReducer } from "./user/user.reducer";
+
+export const rootReducer = combineReducers({
+  user: userReducer,
 });
