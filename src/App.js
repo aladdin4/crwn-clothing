@@ -46,7 +46,7 @@ class App extends React.Component {
       <Router>
         <div className="App">
           {/* feeding the user to the header component so it can render the stat of sign in efficiently */}
-          <Header currentUser={this.state.currentUser} />
+          <Header />
           <Switch>
             <Route path="/Shop">
               <ShopPage />
