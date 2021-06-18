@@ -7,8 +7,6 @@ import { myAuth } from "../../firebase/firebase.util";
 import { connect } from "react-redux";
 
 const Header = (props) => {
-  console.log("the props of the <Header/> are:", props);
-
   return (
     <div className="header">
       <Link className="logo-container" to="/">

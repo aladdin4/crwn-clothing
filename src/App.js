@@ -1,6 +1,11 @@
 import "./App.css";
 import { HomePage } from "./pages/homepage/homePage.component";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom";
 import ShopPage from "./pages/Shop/shop.component";
 import Header from "./components/header/header.component";
 import SignInUpPage from "./pages/sign-in-and-up/SignInAndUp.component";
@@ -38,7 +43,7 @@ class App extends React.Component {
         // if there is no user we should set current user to null in state
         // this.setState({ currentUser: null });
 
-        this.props.setCurrentUser({ user });
+        this.props.setCurrentUser(user);
       }
     });
   }
@@ -58,7 +63,7 @@ class App extends React.Component {
             </Route>
 
             <Route path="/signin">
-              <SignInUpPage />
+              {this.props.currentUser ? <Redirect to="/" /> : <SignInUpPage />}
             </Route>
 
             <Route path="/">
@@ -71,6 +76,12 @@ class App extends React.Component {
   }
 }
 
+const mapState = (state) => {
+  return {
+    currentUser: state.user.currentUser,
+  };
+};
+
 const mapDispatch = (dispatch) => {
   return {
     setCurrentUser: (user) => {
@@ -79,4 +90,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatch)(App);
+export default connect(mapState, mapDispatch)(App);
