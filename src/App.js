@@ -6,12 +6,10 @@ import Header from "./components/header/header.component";
 import SignInUpPage from "./pages/sign-in-and-up/SignInAndUp.component";
 import React from "react";
 import { createUserProfile, myAuth } from "./firebase/firebase.util";
+import { connect } from "react-redux";
+import { setCurrentUser } from "./redux/user/user.actions";
 
 class App extends React.Component {
-  state = {
-    currentUser: null,
-  };
-
   componentDidMount() {
     // onAuthStateChange(arg) method returns a function that when called the open subscribtion is closed, and the arg. it takes should be the function that will be called as subscribed to change event.
     this.unSubscripe = myAuth.onAuthStateChanged(async (user) => {
@@ -23,16 +21,24 @@ class App extends React.Component {
         // to get a live feedback data from fireS, we need to subscribe to it
         userRef.onSnapshot((snapShot) => {
           // we need to save the user data in state, but from the DB not from google Auth object
-          this.setState({
-            currentUser: {
-              id: snapShot.id,
-              ...snapShot.data(),
-            },
+          // this.setState({
+          //   currentUser: {
+          //     id: snapShot.id,
+          //     ...snapShot.data(),
+          //   },
+          // });
+
+          // we need to save the user data in redux because the state is getting to big and we need this tool to handle it
+          this.props.setCurrentUser({
+            id: snapShot.id,
+            ...snapShot.data(),
           });
         });
       } else {
         // if there is no user we should set current user to null in state
-        this.setState({ currentUser: null });
+        // this.setState({ currentUser: null });
+
+        this.props.setCurrentUser({ user });
       }
     });
   }
@@ -45,7 +51,6 @@ class App extends React.Component {
     return (
       <Router>
         <div className="App">
-          {/* feeding the user to the header component so it can render the stat of sign in efficiently */}
           <Header />
           <Switch>
             <Route path="/Shop">
@@ -66,4 +71,12 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapDispatch = (dispatch) => {
+  return {
+    setCurrentUser: (user) => {
+      dispatch(setCurrentUser(user));
+    },
+  };
+};
+
+export default connect(null, mapDispatch)(App);
