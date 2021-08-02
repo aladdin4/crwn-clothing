@@ -47,7 +47,7 @@ const Header = (props) => {
 const mapStateToProps = (state) => {
   return {
     currentUser: state.user.currentUser,
-    cartState: state.cartState.hidden,
+    cartState: state.cart.hidden,
   };
 };
 

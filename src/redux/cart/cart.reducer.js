@@ -1,7 +1,9 @@
 import React from "react";
+import { addItemToCart } from "./cart.utils";
 
 const INIT_STATE = {
   hidden: true,
+  addedItems: [],
 };
 
 const cartReducer = (state = INIT_STATE, action) => {
@@ -10,6 +12,12 @@ const cartReducer = (state = INIT_STATE, action) => {
       // reversing the hidden state each time we click on the button
       return { ...state, hidden: !state.hidden };
 
+    case "ADD_ITEM":
+      console.log(state);
+      return {
+        ...state,
+        addedItems: addItemToCart(state.addedItems, action.payload),
+      };
     default:
       return state;
   }

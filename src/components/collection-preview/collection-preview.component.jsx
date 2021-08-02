@@ -12,14 +12,7 @@ export const CollectionPreview = (props) => {
             return index < 4;
           })
           .map((item) => {
-            return (
-              <CollectionItem
-                key={item.id}
-                imageUrl={item.imageUrl}
-                name={item.name}
-                price={item.price}
-              />
-            );
+            return <CollectionItem key={item.id} item={item} />;
           })}
       </div>
     </div>

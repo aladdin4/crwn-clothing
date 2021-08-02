@@ -1,9 +1,14 @@
 import React from "react";
 
-const cartActionCreator = () => {
+export const cartToggler = () => {
   return {
     type: "TOGGLE_CART_HIDDEN",
   };
 };
 
-export default cartActionCreator;
+export const addItem = (item) => {
+  return {
+    type: "ADD_ITEM",
+    payload: item,
+  };
+};
