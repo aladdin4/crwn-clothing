@@ -5,6 +5,8 @@ import React from "react";
 import "./header.styles.scss";
 import { myAuth } from "../../firebase/firebase.util";
 import { connect } from "react-redux";
+import CartIcon from "../cart-icon/cart-icon.component";
+import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 
 const Header = (props) => {
   return (
@@ -33,7 +35,9 @@ const Header = (props) => {
             Sign In
           </Link>
         )}
+        <CartIcon />
       </div>
+      {props.cartState ? null : <CartDropdown />}
     </div>
   );
 };
@@ -41,7 +45,10 @@ const Header = (props) => {
 // a fn() that receive the whole state object  and is supposed to return another object based on it, this object will go to the wrapper and passed down as props to our component
 // called automatically through connect()(</>)
 const mapStateToProps = (state) => {
-  return { currentUser: state.user.currentUser };
+  return {
+    currentUser: state.user.currentUser,
+    cartState: state.cartState.hidden,
+  };
 };
 
 export default connect(mapStateToProps)(Header);

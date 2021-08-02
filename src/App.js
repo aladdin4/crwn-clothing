@@ -41,7 +41,7 @@ class App extends React.Component {
         });
       } else {
         // if there is no user we should set current user to null in state
-        // this.setState({ currentUser: null });
+        // this.setState({ currentUser: user(which equal null) });
 
         this.props.setCurrentUser(user);
       }
@@ -85,6 +85,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     setCurrentUser: (user) => {
+      // we dispatch the returned object from action creator, so it can be sent to the reducers
       dispatch(setCurrentUser(user));
     },
   };
