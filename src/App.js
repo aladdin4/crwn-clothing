@@ -6,6 +6,7 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
+
 import ShopPage from "./pages/Shop/shop.component";
 import Header from "./components/header/header.component";
 import SignInUpPage from "./pages/sign-in-and-up/SignInAndUp.component";
@@ -13,6 +14,7 @@ import React from "react";
 import { createUserProfile, myAuth } from "./firebase/firebase.util";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user.actions";
+import { currentUser } from "./redux/user/user.selector";
 
 class App extends React.Component {
   componentDidMount() {
@@ -78,7 +80,7 @@ class App extends React.Component {
 
 const mapState = (state) => {
   return {
-    currentUser: state.user.currentUser,
+    currentUser: currentUser(state),
   };
 };
 

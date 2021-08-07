@@ -7,6 +7,7 @@ import { myAuth } from "../../firebase/firebase.util";
 import { connect } from "react-redux";
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
+import { cartState, currentUser } from "../../redux/user/user.selector";
 
 const Header = (props) => {
   return (
@@ -46,8 +47,8 @@ const Header = (props) => {
 // called automatically through connect()(</>)
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.user.currentUser,
-    cartState: state.cart.hidden,
+    currentUser: currentUser(state),
+    cartState: cartState(state),
   };
 };
 
