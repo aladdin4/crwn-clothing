@@ -1,5 +1,7 @@
 import "./App.css";
-import { HomePage } from "./pages/homepage/homePage.component";
+import React from "react";
+import { connect } from "react-redux";
+
 import {
   BrowserRouter as Router,
   Redirect,
@@ -7,14 +9,14 @@ import {
   Switch,
 } from "react-router-dom";
 
+import { createUserProfile, myAuth } from "./firebase/firebase.util";
+import { HomePage } from "./pages/homepage/homePage.component";
 import ShopPage from "./pages/Shop/shop.component";
 import Header from "./components/header/header.component";
 import SignInUpPage from "./pages/sign-in-and-up/SignInAndUp.component";
-import React from "react";
-import { createUserProfile, myAuth } from "./firebase/firebase.util";
-import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user.actions";
 import { currentUser } from "./redux/user/user.selector";
+import CheckoutPage from "./pages/checkout/checkout.component";
 
 class App extends React.Component {
   componentDidMount() {
@@ -66,6 +68,10 @@ class App extends React.Component {
 
             <Route path="/signin">
               {this.props.currentUser ? <Redirect to="/" /> : <SignInUpPage />}
+            </Route>
+
+            <Route path="/checkout">
+              <CheckoutPage />
             </Route>
 
             <Route path="/">
