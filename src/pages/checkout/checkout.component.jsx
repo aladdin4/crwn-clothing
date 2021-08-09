@@ -3,13 +3,13 @@ import { connect } from "react-redux";
 
 import "./checkout.styles.scss";
 import {
-  itemsListSelector,
+  addedItemsSelector,
   totalSelector,
 } from "../../redux/cart/cart.selectors";
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
 
 const CheckoutPage = (props) => {
-  console.log("itemsList  of the checkout page are:", props.itemsList);
+  console.log("props  of the checkout page are:", props);
   return (
     <div className="checkout-page">
       <div className="checkout-header">
@@ -34,7 +34,7 @@ const CheckoutPage = (props) => {
         </div>
       </div>
 
-      {props.itemsList.map((item) => {
+      {props.addedItems.map((item) => {
         return <CheckoutItem key={item.id} item={item} />;
       })}
 
@@ -45,7 +45,7 @@ const CheckoutPage = (props) => {
 
 const mapstate = (state) => {
   return {
-    itemsList: itemsListSelector(state),
+    addedItems: addedItemsSelector(state),
     totalPrice: totalSelector(state),
   };
 };

@@ -12,3 +12,17 @@ export const addItem = (item) => {
     payload: item,
   };
 };
+
+export const removeItem = (item) => {
+  return {
+    type: "REMOVE_ITEM",
+    payload: item,
+  };
+};
+
+export const decreaseItem = (item) => {
+  return {
+    type: "DECREASE_ITEM",
+    payload: item,
+  };
+};

@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 
-import { itemsListSelector } from "../../redux/cart/cart.selectors";
+import { addedItemsSelector } from "../../redux/cart/cart.selectors";
 import CartItem from "../cart-item/cart-item.component";
 import CustomBtn from "../custom-btn/customBtn.component";
 import "./cart-dropdown.styles.scss";
@@ -43,7 +43,7 @@ const mapDispatch = (dispatch) => {
 };
 
 const mapState = (state) => {
-  return { items: itemsListSelector(state) };
+  return { items: addedItemsSelector(state) };
 };
 
 // withRouter allow us to get the history object from the props

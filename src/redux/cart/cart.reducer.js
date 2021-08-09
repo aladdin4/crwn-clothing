@@ -1,5 +1,5 @@
 import React from "react";
-import { addItemToCart } from "./cart.utils";
+import { addItemToCart, decreaseItem, removeItemFromCart } from "./cart.utils";
 
 const INIT_STATE = {
   hidden: true,
@@ -16,6 +16,18 @@ const cartReducer = (state = INIT_STATE, action) => {
       return {
         ...state,
         addedItems: addItemToCart(state.addedItems, action.payload),
+      };
+
+    case "REMOVE_ITEM":
+      return {
+        ...state,
+        addedItems: removeItemFromCart(state.addedItems, action.payload),
+      };
+
+    case "DECREASE_ITEM":
+      return {
+        ...state,
+        addedItems: decreaseItem(state.addedItems, action.payload),
       };
     default:
       return state;
