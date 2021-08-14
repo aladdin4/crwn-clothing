@@ -15,7 +15,7 @@ export const totalSelector = createSelector(
   (itemsList) => {
     // console.log(itemsList);
     return itemsList.reduce(
-      (totalPrice, item) => totalPrice + item.quantity * item.price,
+      (totalPrice, item) => totalPrice + (item.quantity * item.price),
       0
     );
   }
