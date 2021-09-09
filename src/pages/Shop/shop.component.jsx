@@ -1,25 +1,29 @@
 import React from "react";
-import { CollectionPreview } from "../../components/collection-preview/collection-preview.component";
-import SHOP_DATA from "./shop.data";
 
-class ShopPage extends React.Component {
-  state = { collections: SHOP_DATA };
+import { Route } from "react-router";
 
-  render() {
-    return (
-      <div className="shop-page">
-        {this.state.collections.map((collection) => {
-          return (
-            <CollectionPreview
-              key={collection.id}
-              title={collection.title}
-              items={collection.items}
-            />
-          );
-        })}
-      </div>
-    );
-  }
-}
+import CollectionOverview from "../collection-overview/collection-overview.component";
+import CollectionPage from "../collection/collection.component";
+
+const ShopPage = (props) => {
+  // the shopPage match.path is the same as set in the app.js
+  // so we implement path that way to be more flexible
+
+  return (
+    <div className="shop-page">
+      <Route
+        exact
+        path={`${props.match.path}`}
+        component={CollectionOverview}
+      />
+
+      {/* implementing url param to be used in the conditional rendering inside it */}
+      <Route
+        path={`${props.match.path}/:collectionId`}
+        component={CollectionPage}
+      />
+    </div>
+  );
+};
 
 export default ShopPage;
