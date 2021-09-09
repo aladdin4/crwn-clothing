@@ -62,21 +62,20 @@ class App extends React.Component {
         <div className="App">
           <Header />
           <Switch>
-            <Route path="/Shop">
-              <ShopPage />
-            </Route>
+            {/* the component prop will receive the props of router through inline function */}
+            <Route path="/Shop" component={ShopPage} />
 
             <Route path="/signin">
-              {this.props.currentUser ? <Redirect to="/" /> : <SignInUpPage />}
+              {this.props.currentUser ? (
+                <Redirect to="/" />
+              ) : (
+                <Route component={SignInUpPage} />
+              )}
             </Route>
 
-            <Route path="/checkout">
-              <CheckoutPage />
-            </Route>
+            <Route path="/checkout" component={CheckoutPage} />
 
-            <Route path="/">
-              <HomePage />
-            </Route>
+            <Route path="/" component={HomePage} />
           </Switch>
         </div>
       </Router>

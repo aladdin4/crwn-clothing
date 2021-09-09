@@ -5,6 +5,7 @@ import { addItem } from "../../redux/cart/cart.actions";
 import CustomBtn from "../custom-btn/customBtn.component";
 import "./collection-item.styles.scss";
 
+// custom component for rendering items
 const CollectionItem = (props) => {
   return (
     <div className="collection-item">
