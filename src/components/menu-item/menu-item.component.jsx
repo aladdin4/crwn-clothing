@@ -7,16 +7,14 @@ import "./menu-item.styles.scss";
 
 // each one should be clickable and on click it should call a callback function that leads to the equivalent page through pushing the history object
 
-// the component can access the history object directly via withReact()
+// the component can access the history object directly via withRouter()
 
 const MenuItem = (props) => {
   return (
     <div
       className={`menu-item ${props.size}`}
       onClick={() => {
-        props.history.push(
-          `${props.history.location.pathname}${props.linkUrl}`
-        );
+        props.history.push(`${props.linkUrl}`);
       }}
     >
       <div
