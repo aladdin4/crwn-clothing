@@ -6,11 +6,10 @@ import CollectionItem from "../../components/collection-item/collection-item.com
 import "./collection.styles.scss";
 
 const CollectionPage = (props) => {
-  //we need to defend here against undef url matches
+  // we need to defend here against undef url matches
   // extracting the matched element data from props (which comes from state)
   const categoryData = props.shopData[props.match.params.collectionId];
 
-  console.log(props);
   return (
     <div className="collection-page">
       <h2 className="title"></h2>
